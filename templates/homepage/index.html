@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% include 'base_template.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="row bg-warning py-5">
+        <div class="col text-center">
+          <h1> Homepage - Update </h1>
+
+        <!--   <h4>
+                <a href="{% url 'cartOrderApp:cart' custCart.cart_id %}" class="btn btn-large btn-danger" style="color:black; text-decoration:underlined;">Show Cart</a>
+            </h4>-->
+        </div>
+    </div>
+
+    <!--<h1>Cart ID: {{ custCart.cart_id }}</h1>-->
+
+
+    <!-- Product Cart -->
+    <div class="row bg-danger">
+            <!-- forloop for product -->
+            {% for pd in Products %}
+            <div class="col bg-info p-5 d-flex justify-content-center">
+                <div class="card me-2"
+                     style="width: 18rem;">
+
+                  <img src="{{ pd.image.url }}"
+                       class="card-img-top" alt="product-image"
+                       style="width: 10rem; height: 10rem";>
+
+                  <div class="card-body">
+                    <h5 class="card-title"> {{ pd.name|truncatechars:9 }} </h5>
+                    <p class="card-text"> BDT {{ pd.price }} </p>
+                    <a href="{% url 'homepageApplication:productDetail' pd.pk %}" class="btn btn-primary"> View Details {{ pd.pk }}</a>
+                  </div>
+                </div>
+            </div>
+
+            
+
+
+            {% endfor %}
+    </div>
+{% endblock %}

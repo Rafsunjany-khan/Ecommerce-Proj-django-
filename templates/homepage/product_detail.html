@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% include 'base_template.html' %}
+
+
+
+
+{% block content %}
+    <div class="row bg-warning py-5">
+        <div class="col text-center">
+          <h1> Product Detail Page </h1>
+
+<!--            <h5> Product ID: {{ productDetail.id }} </h5>
+            <h5> Product Name: {{ productDetail.name }} </h5>
+            <h5> Product Price: {{ productDetail.price }} </h5>
+            <h5> Product Description: {{ productDetail.desc }} </h5>
+            <h5> Product Image URL: {{ productDetail.image }} </h5> -->
+
+            <!-- Product Info -->
+            <div class="row bg-primary mt-5">
+                <!-- Product Image, title, Price -->
+                <div class="row bg-secondary container-fluid">
+                    <!-- Product Image-->
+                    <div class="col-4 bg-dark d-flex justify-content-start">
+                        <img src="{{ productDetail.image.url }}"
+                             alt="Product-Image"
+                             style="width: 20rem; height: 20rem;">
+                    </div>
+                    <!--Product Title, Price -->
+                    <div class="col bg-info">
+                        <!-- Product Title -->
+                        <div class="row">
+                            <div class="col d-flex justify-content-start">
+                                <p style="font-size: 2.5rem; font-weight: 700">
+                                    {{ productDetail.name }}
+                                </p>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                        <!-- Product Price-->
+                        <div class="row">
+                            <div class="col d-flex justify-content-start">
+                                <p style="font-size: 1.5rem; font-weight: 600">
+                                    BDT {{ productDetail.price }}/-
+                                </p>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Description, "Add to cart", Session -->
+                <div class="row">
+                    <!-- Product Description -->
+                    <div class="col bg-success">
+                        <div class="row mt-5">
+                            <div class="col d-flex justify-content-start">
+                                <h4> Description </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-start">
+                                 <p style="font-size: 1.2rem;">
+                                    {{ productDetail.desc }}
+                                 </p>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- "Add to cart session -->
+                        <div class="col bg-warning">
+                            <form action="{% url 'cartOrderApp:addToCart' %}" method="POST">
+                                {% csrf_token %}
+                              <div class="mb-3">
+                                  <div class="row">
+                                      <div class="col">
+                                        <label for="prod_id" class="form-label">Product ID</label>
+                                      </div>
+                                      <div class="col">
+                                        <input type="text" class="form-control" id="prod_id" name="prod_id" value="{{ productDetail.id }}">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="mb-3">
+                                  <div class="row">
+                                      <div class="col">
+                                        <label for="cart_id" class="form-label">Cart ID</label>
+                                      </div>
+                                      <div class="col">
+                                        <input type="text" class="form-control" id="cart_id" name="cart_id" value="{{ cart_id }}">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="mb-3">
+                                  <div class="row">
+                                      <div class="col">
+                                        <div class="col"> <label for="prod_quant">Quantity</label> </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="col"> <input type="number" name="prod_quant" id="prod_quant" class="from-control" min="1" max="10" value="1"> </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Add to Cart-->
+            <div class="row"></div>
+
+        </div>
+    </div>
+{% endblock %}

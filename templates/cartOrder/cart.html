@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends 'base_template.html' %}
+
+
+
+{% block content %}
+
+    <h1> Shopping Cart </h1>
+
+    <h3> Cart ID: {{ cart_id }} </h3>
+
+    <div class="container my-5">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cart ID</th>
+                <th scope="col">Cart Item ID</th>
+                <th scope="col">Product ID</th>
+                 <th scope="col">Product Quantity</th>
+                 <th scope="col">Product Price</th>
+                 <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cit in cartItems %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{ cit.cart_id }}</td>
+                <td>{{ cit.cartItem_id }}</td>
+                <td>{{ cit.prod_id }}</td>
+                <td>{{ cit.prod_quantity }}</td>
+                <td>{{ cit.prod_price }}</td>
+                <td>
+
+                    <form action="{% url 'cartOrderApplication:cartItem_remove' cit.cartItem_id cart_id %}" method="POST" style="display: none;" id="delete_form_{{ cit.cartItem_id }}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+
+                       <i class="bi bi-trash-fill"  onclick="openModal({{ cit.cartItem_id }})" style="cursor: pointer; font-size: 1.5rem; color: blue;"></i>
+
+
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    function openModal(citem_id) {
+
+    let cartItem_del_form_id = "delete_form_" + citem_id;
+
+    console.log('cart Item ID: ', citem_id)
+    console.log('cart Item ID (type): ', typeof(citem_id))
+
+    <!-- Sweet alert2 -->
+
+    Swal.fire({
+          title: 'Are you sure to delete this cart?',
+          text: "You won't be able to revert this! Cart Item ID: " +citem_id,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'delete'
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+            document.getElementById(cartItem_del_form_id).submit();
+  }
+})}
+</script>
+
+
+{% endblock %}
