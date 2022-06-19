@@ -5,9 +5,15 @@
 
 {% block content %}
 
-    <h1> Shopping Cart </h1>
+    <div class="row">
+        <div class="col">
+            <h1> Shopping Cart </h1>
+        </div>
+        <div class="col-3">
+            <a href="{% url 'cartOrderApp:createOrder' cart_id %}" class="btn btn-lg btn-success">Process to Checkout</a>
+        </div>
+    </div>
 
-    <h3> Cart ID: {{ cart_id }} </h3>
 
     <div class="container my-5">
 

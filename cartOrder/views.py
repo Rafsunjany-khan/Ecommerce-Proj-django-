@@ -96,3 +96,22 @@ def cartItem_remove(request, cartItem_id, cart_id):
         'cartOrderApplication:cart',
         kwargs={'cart_id': cart_id}
     ))
+
+def createOrder(request, cart_id):
+    print('Create order function is called!')
+    cust = User.objects.get(username=request.user)
+    cart = Cart.objects.get(cart_id=cart_id)
+
+    print('Create order function -----cart:', cart)
+    #return redirect()
+    return HttpResponse('A new order is generated!')
+    
+
+    pass
+
+"""def orderSummary(request):
+    print('Order summery function is called')
+    
+   # return render(request, 'cartOrder/order.html', context)
+    return HttpResponse('Order summery page is rendered')
+    pass"""

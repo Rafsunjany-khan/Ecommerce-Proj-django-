@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'base_template.html' %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col">
+            <h1> Order Page </h1>
+        </div>
+    </div>
+
+
+    <div class="container my-5">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cart ID</th>
+                <th scope="col">Cart Item ID</th>
+                <th scope="col">Product ID</th>
+                 <th scope="col">Product Quantity</th>
+                 <th scope="col">Product Price</th>
+                 <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cit in cartItems %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{ cit.cart_id }}</td>
+                <td>{{ cit.cartItem_id }}</td>
+                <td>{{ cit.prod_id }}</td>
+                <td>{{ cit.prod_quantity }}</td>
+                <td>{{ cit.prod_price }}</td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
