@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from cartOrder.models import *
+from .models import *
 from homepage.models import Products
 from django.urls.base import reverse
 
@@ -85,7 +85,7 @@ def cartItem_remove(request, cartItem_id, cart_id):
         print('#' * 50)
         print('Cart Item ID(Post Method): ', cartItem_id)
         print('#' * 50)
-        cart_Item = cartItem.objects.get(cartItem_id=cartItem_id)
+        cart_Item = CartItem.objects.get(cartItem_id=cartItem_id)
         print('cart Item Instance: ', cart_Item)
         cart_Item.delete()
 
