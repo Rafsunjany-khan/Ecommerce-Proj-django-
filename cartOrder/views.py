@@ -69,6 +69,7 @@ def cart(request, cart_id):
 
     context={
         'title': 'Shopping Cart',
+        'cart' : cart,
         'cart_id': cart_id,
         'cartItems': cartItems,
     }
@@ -101,17 +102,51 @@ def createOrder(request, cart_id):
     print('Create order function is called!')
     cust = User.objects.get(username=request.user)
     cart = Cart.objects.get(cart_id=cart_id)
+    price = cart.total_price
 
     print('Create order function -----cart:', cart)
-    #return redirect()
-    return HttpResponse('A new order is generated!')
-    
 
-    pass
+    order = Order.objects.filter(cart_id=cart, is_paid=False, is_cancelled=False)
 
-"""def orderSummary(request):
+    print("#" * 50)
+    for o in order:
+        print("Create (Order Function): ", o)
+    print("#" * 50)
+
+    if len(order) == 0:
+        print("Create a new Order (createOrder function)!")
+        Order.objects.create(
+            customer=cust,
+            cart_id=cart,
+            price=price,
+    )
+    else:
+        print("The order will be update (createOrder function)!")
+        for o in order:
+            o.price = price
+            o.save()
+
+    return redirect(reverse(
+        'cartOrderApp:orderSummary',
+        kwargs={ 'cart_id': cart_id }
+    ))
+    #return HttpResponse('A new order is generated!')
+
+
+
+
+def orderSummary(request, cart_id):
     print('Order summery function is called')
-    
-   # return render(request, 'cartOrder/order.html', context)
-    return HttpResponse('Order summery page is rendered')
-    pass"""
+
+    cart = Cart.objects.get(cart_id=cart_id)
+    cartItems = CartItem.objects.filter(cart_id=cart)
+
+    context = {
+        'title': 'Order Summary',
+        'cart': cart,
+        'cart_id': cart_id,
+        'cartItems': cartItems,
+    }
+    return render(request, 'cartOrder/order.html', context)
+    #return HttpResponse('Order summery page is rendered')
+    pass

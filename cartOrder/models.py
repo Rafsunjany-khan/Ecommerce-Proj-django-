@@ -62,7 +62,7 @@ PAYMENT_CHOICES = [
 class Order(models.Model):
     order_id = models.CharField(verbose_name='Order ID', max_length=100)
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer+', verbose_name='Customer')
-    cart_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
     price = models.FloatField(default=0)
     payment_method = models.CharField(verbose_name='Payment Method', max_length=20, choices=PAYMENT_CHOICES, default='COD')
     is_paid = models.BooleanField(default=False)
