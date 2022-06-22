@@ -140,13 +140,42 @@ def orderSummary(request, cart_id):
 
     cart = Cart.objects.get(cart_id=cart_id)
     cartItems = CartItem.objects.filter(cart_id=cart)
+    order = Order.objects.get(cart_id=cart)
+    print("Order",order)
 
     context = {
         'title': 'Order Summary',
         'cart': cart,
         'cart_id': cart_id,
         'cartItems': cartItems,
+        'order': order,
+
     }
     return render(request, 'cartOrder/order.html', context)
     #return HttpResponse('Order summery page is rendered')
+    pass
+
+
+def cancelOrder(request, order_id):
+    print("cancel order function is called! Order ID:", order_id)
+    order = Order.objects.get(order_id=order_id)
+    order.is_cancelled = True
+    order.save()
+
+    return redirect('homepageApp:homepage')
+    #return HttpResponse("cancel order function is called!")
+    pass
+
+
+def orderCOD(request, order_id):
+    print("Order COD function is called! Order COD:", order_id)
+    # order = Order.objects.get(order_id=order_id)
+
+    return redirect('homepageApp:homepage')
+    pass
+
+def orderSSL(request, order_id):
+    print("Order SSL function is called! Order SSL:", order_id)
+
+    return redirect('homepageApp:homepage')
     pass
